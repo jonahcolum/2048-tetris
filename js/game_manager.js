@@ -60,7 +60,7 @@ GameManager.prototype.addStartTiles = function () {
 // Generates tile value
 GameManager.prototype.randomTile = function () {
   var rand = Math.random();
-  return rand < 0.7 ? 2 : (rand < 0.9 ? 4 : 8);
+  return rand < 0.7 ? 8 : (rand < 0.9 ? 16 : 32);
 };
 
 // Adds a tile in a random position
@@ -198,7 +198,7 @@ GameManager.prototype.move = function (direction) {
     if((direction == 2 || direction == 4) && this.grid.falling.y == 0)
       this.over = true; // Game over!
     if(direction == 4 && this.grid.falling.y != 0)
-      this.addRandomTile();    
+      this.addRandomTile();
     this.actuate();
   }
 };
@@ -233,7 +233,7 @@ GameManager.prototype.buildTraversals = function (vector) {
 
   // if(vector.y == 0) traversals.y = [0]
   if(vector.y == 0) { // && vector.x == 0) {
-    traversals.x = [this.grid.falling.x]; 
+    traversals.x = [this.grid.falling.x];
     traversals.y = [this.grid.falling.y];
   }
   return traversals;
@@ -241,12 +241,12 @@ GameManager.prototype.buildTraversals = function (vector) {
 
 GameManager.prototype.findFarthestPosition = function (cell, vector) {
   var previous;
-  
+
   if(vector.y == 0) {
         if(vector.x == 0)vector.y = 1;
         previous = cell; cell = { x: previous.x + vector.x, y: previous.y + vector.y };
         if(this.grid.withinBounds(cell) && this.grid.cellAvailable(cell)) {
-        previous = cell; //cell = { x: previous.x + vector.x, y: previous.y + vector.y };          
+        previous = cell; //cell = { x: previous.x + vector.x, y: previous.y + vector.y };
         if(vector.x == 0)vector.y = 0;
         }
   } else {
